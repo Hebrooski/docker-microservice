@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Name: Grayson Lyvers 
+Date: 
+File name: template.html
+Webpage description:
+    
+-->
+<html>
+    <head>
+        <title>Registration</title>
+        <link href = "styles/styles.css" rel = "stylesheet">
+        <script type="text/javascript" src="js/registration.js"></script>
+    </head>
+    <header>
+        <div class="header-bar">
+            <img src="https://media1.thehungryjpeg.com/thumbs2/ori_4018889_mdlvthxd9upa63pw0vooio5s6l4254sk242wcbkm_gl-monogram-logo-design-v6.jpg" alt="logo" />
+            <h1>GraysonLyv Homepage</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="page-nav">
+            <h2>Page Navigation</h2>
+            <ul>
+                <a href="index.html"><li>Homepage</li></a>
+                <a href="about.html"><li>About Me</li></a>
+                <a href="interests.html"><li>My Interests</li></a>
+                <a href="gallery.html"><li>Gallery</li></a>
+                <a href="contact.html"><li>Contact Me</li></a>
+                <a href="registration.html"><li>Registration</li></a>
+            </ul>
+        </div>
+    </nav>
+    <br/>
+    <body>
+        <section class="cen-con" id="pageForm" onload="setInputsRequired();">
+            <form action="confirm.html" onsubmit="submitAndCreateCookie();">
+                <label for="userName">Username:</label>
+                <input id="userName" type="text" name="userName" placeholder="Enter your Username" pattern="[A-Za-z0-9]*" title="Username can only be letters and numbers." required />
+                <p id="userName" hidden>Username may only contain letters and numbers!</p>
+    
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your Password" minlength="8"  title="Minimum password length is 8 characters" required/>
+                <p id="passwordAlert" hidden>Password must have at least 8 characters.</p>
+                <br>
+                <label for="passwordVerify">Verify your Password:</label>
+                <input type="password" id="passwordVerify" name="passwordVerify" placeholder="Enter in your Password again" onchange="checkPasswordVerify();" required/>
+                <p id="passwordVerifyMatchAlert" style="color:red; display: none;">Passwords must match!</p>
+                <p id="passwordVerifyLengthAlert" style="color:red; display: none;">Passwords must be at least 8 characters!</p>
+                <br>
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" placeholder="Enter your First Name" required/>
+    
+                <label for="hostName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" placeholder="Enter your Last Name" required/>
+    
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Enter your Email Address" required/>
+    
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="Enter your Phone Number" pattern="\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}" required
+                title="Format: (xxx) xxx-xxxx"/>
+                <p id="phoneAlert" hidden>Please follow the format: (xxx) xxx-xxxx</p>
+    
+                <label for="signUpNewsletter">Sign up for newsletter:</label>
+                <input type="radio" name="signUpNewsletter" value="Yes" checked> Yes 
+                <input type="radio" name="signUpNewsletter" value="No"> No
+                <br><br>
+                <input type="submit" value="Next step" >
+            </form>
+        </section>
+        <br><br>
+    </body>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <footer class="footer-bar">
+        <h6>Copyright belongs to Grayson Lyvers</h6>
+        <h6>Created in Visual Studio Code</h6>
+</footer>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Name: Grayson Lyvers 
+Date: 9/10/2024
+File name: volunteer.html
+Webpage description:
+    This page has a form that handles adding user input into a text area
+    
+-->
+<html>
+    <head>
+        <title>Volunteer</title>
+        <link href = "styles/styles.css" rel = "stylesheet">
+        <script type="text/javascript" src="js/volunteers.js"></script>
+    </head>
+    <header>
+        <div class="header-bar">
+            <img src="https://media1.thehungryjpeg.com/thumbs2/ori_4018889_mdlvthxd9upa63pw0vooio5s6l4254sk242wcbkm_gl-monogram-logo-design-v6.jpg" alt="logo" />
+            <h1>Volunteer</h1>
+        </div>
+    </header>
+    <nav>
+        <div class="page-nav">
+            <h2>Page Navigation</h2>
+            <ul>
+                <a href="index.html"><li>Homepage</li></a>
+                <a href="about.html"><li>About Me</li></a>
+                <a href="interests.html"><li>My Interests</li></a>
+                <a href="gallery.html"><li>Gallery</li></a>
+                <a href="contact.html"><li>Contact Me</li></a>
+            </ul>
+        </div>
+    </nav>
+    <br/>
+    <body>
+        <section class="cen-con">
+            <form method="post">
+                <h1>Volunteers</h1>
+                <div>
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name">
+                    
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name">
+                   
+    
+                    
+                    <input type="button" id="add_button" value="Add Volunteer">
+                    <input type="button" id="delete_button" value="Delete Volunteer">
+                </div>
+                <h2>Volunteer List</h2>
+                <textarea id="volunteerList" rows="10" cols="60"></textarea>
+                <div>
+    
+                    <input type="button" id="clear_button" value="Clear Volunteers">
+    
+                    <input type="button" id="sort_button" value="Sort By First Name">
+                </div>
+    
+            </form>
+        </section>
+    </body>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <footer class="footer-bar">
+        <h6>Copyright belongs to Grayson Lyvers</h6>
+        <h6>Created in Visual Studio Code</h6>
+</footer>
+</html>
