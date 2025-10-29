@@ -5,10 +5,10 @@ services:
         context: ./frontend
       ports:
         - 8080:8080
-      depends_on:
-        users:
-          condition: service_healthy
-  users:
+      # depends_on:
+      #   employees:
+      #     condition: service_healthy
+  employees:
     build:
       context: ./employees
     ports:
@@ -20,22 +20,31 @@ services:
     image: postgres
     restart: always
     # user: postgres
-    # secrets:
-    #   - db-password
+    secrets:
+      - db_password
     volumes:
       - db-data:/var/lib/postgresql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - POSTGRES_DB=example_app
+      - POSTGRES_DB=DEMO
       - POSTGRES_USER=example
-      - POSTGRES_PASSWORD=secret
-    expose:
-      - 5432
+      # - POSTGRES_PASSWORD=secret
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+    ports:
+      - "5432:5432"
     healthcheck:
-      test: [ "CMD", "pg_isready -U example -d users" ]
+      test: [ "CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
 volumes:
   db-data:
 
+secrets:
+  db_password:
+    file: ./db/password.txt
 
+# networks: #required 
+#   my-app-network:
+#     driver: bridge

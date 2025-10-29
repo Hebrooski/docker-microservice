@@ -146,11 +146,11 @@
                   dataSource: {
                       transport: {
                           read: {
-                              url: './content/employees-list.json',
-                              crossDomain: true,
-                              dataType: "jsonp",
-                              jsonp: false,
-                              jsonpCallback: "callback_el"
+                              url: 'http://localhost:8001/employees/get-employees',
+                            //   crossDomain: true,
+                            //   dataType: "jsonp",
+                            //   jsonp: false,
+                            //   jsonpCallback: "callback_el"
                           }
                       },
                       pageSize: 9
@@ -169,7 +169,7 @@
                       transport: {
                           read: function(options){
                               var result = $.grep(employeeQuarterSales, function(e){
-                                  return e.EmployeeID == options.data.EmployeeID;
+                                  return e.id == options.data.id;
                               })[0];
                               options.success(result.Sales)
                           }
@@ -215,7 +215,7 @@
                       transport: {
                           read: function(options){
                               var result = $.grep(employeeAverageSales, function(e){
-                                  return e.EmployeeID == options.data.EmployeeID;
+                                  return e.id == options.data.id;
                               });
                               options.success(result);
                           }
@@ -278,7 +278,7 @@
                               var startDate = options.data.startDate;
                               var endDate = options.data.endDate;
                               var employee = $.grep(employeeAndTeamSales, function(e){
-                                  return e.EmployeeID == options.data.EmployeeID;
+                                  return e.id == options.data.id;
                               })[0];
                               options.success(employee.Sales);
                           }
@@ -333,60 +333,60 @@
                   dataSource:{
                       transport:{
                           read: {
-                              url: "./content/employee-sales.json",
-                              crossDomain: true,
-                              dataType: "jsonp",
-                              jsonp: false,
-                              jsonpCallback: "callback_es"
+                              url: "http://localhost:8001/employees/get-employee-sales",
+                            //   crossDomain: true,
+                            //   dataType: "jsonp",
+                            //   jsonp: false,
+                            //   jsonpCallback: "callback_es"
                           }
                       },
                           schema: {
                              model: {
                                   fields: {
-                                      SaleID: {
+                                      saleId: {
                                           type :  "number"
                                       },
                                       title: {
-                                          from : "Title",
+                                          from : "title",
                                           type :  "string"
                                       },
                                       description: {
-                                          from : "Description",
+                                          from : "description",
                                           type :  "string"
                                       },
-                                      start: {
-                                          from : "Start",
-                                          type :  "date"
-                                      },
+                                    //   start: {
+                                    //       from : "Start",
+                                    //       type :  "date"
+                                    //   },
                                       startTimezone: {
-                                          from : "StartTimezone",
-                                          type :  "string"
-                                      },
-                                      end: {
-                                          from : "End",
+                                          from : "startTimezone",
                                           type :  "date"
                                       },
+                                    //   end: {
+                                    //       from : "End",
+                                    //       type :  "date"
+                                    //   },
                                       endTimezone: {
-                                          from : "EndTimezone",
-                                          type :  "string"
+                                          from : "endTimezone",
+                                          type :  "date"
                                       },
                                       recurrenceRule: {
-                                          from : "RecurrenceRule",
+                                          from : "recurrenceRule",
                                           type :  "string"
                                       },
-                                      RecurrenceID: {
+                                      recurrenceID: {
                                           type :  "number",
                                           defaultValue: null
                                       },
                                       recurrenceException: {
-                                          from : "RecurrenceException",
+                                          from : "recurrenceException",
                                           type :  "string"
                                       },
                                       isAllDay: {
-                                          from : "IsAllDay",
+                                          from : "isAllDay",
                                           type :  "boolean"
                                       },
-                                      EmployeeID: {
+                                      employeeID: {
                                           type :  "number",
                                           defaultValue: null
                                       }
@@ -395,18 +395,18 @@
                           }
                   },
                   resources: [{
-                      field: "EmployeeID",
+                      field: "employeeId",
                       title: "Employee",
-                      dataTextField: "EmployeeName",
-                      dataValueField: "EmployeeID",
+                      dataTextField: "employeeName",
+                      dataValueField: "employeeId",
                       dataSource: {
                           transport: {
                               read: {
-                                  url : "./content/employees-list-sales.json",
-                                  crossDomain: true,
-                                  dataType: "jsonp",
-                                  jsonp: false,
-                                  jsonpCallback: "callback_els"
+                                  url : "http://localhost:8001/employees/get-employees"
+                                //   crossDomain: true,
+                                //   dataType: "jsonp",
+                                //   jsonp: false,
+                                //   jsonpCallback: "callback_els"
                               }
                           }
                       }
@@ -435,7 +435,7 @@
                 startDate = $("#start-date").data("kendoDatePicker"),
                 endDate = $("#end-date").data("kendoDatePicker"),
                 filter = {
-                    EmployeeID: employee.EmployeeID,
+                    employeeId: employee.id,
                     startDate: kendo.format("{0:MM/dd/yyyy hh:mm:ss}", startDate.value()),
                     endDate: kendo.format("{0:MM/dd/yyyy hh:mm:ss}", endDate.value())
                 },
@@ -444,9 +444,9 @@
             $("#employeeBio").html(template(employee));
 
             employeeSales.dataSource.filter({
-                field: "EmployeeID",
+                field: "employeeId",
                 operator: "eq",
-                value: employee.EmployeeID
+                value: employee.id
             });
 
             teamSales.dataSource.read(filter);
@@ -472,10 +472,10 @@
      <script type="text/x-kendo-tmpl" id="employeeItemTemplate">
         <div class="employee">
             <div class="employee-wrapper">
-                <img alt="Kendo UI for jQuery ListView #: FirstName# #:LastName#" src="./content/employees/#:EmployeeID#-t.png" class="img-responsive employee-list-image"/>
+                <img alt="Kendo UI for jQuery ListView #: firstName# #:lastName#" src="./content/employees/#:id#-t.png" class="img-responsive employee-list-image"/>
                     <dl class="employee-list-details">
-                        <dt class="name">#:FirstName# #:LastName# </dt>
-                        <dd class="title">#:Title# </dd>
+                        <dt class="name">#:firstName# #:lastName# </dt>
+                        <dd class="title">#:title# </dd>
                    </dl>
                </div>
             </div>
@@ -483,12 +483,12 @@
     <script type="text/x-kendo-tmpl" id="employeeBioTemplate">
         <div>
             <h3>ABOUT</h3>
-            <img alt="Kendo UI for jQuery ListView #: FirstName# #:LastName#" src="./content/employees/#:EmployeeID#.png" class="img-responsive employee-details-image" />
+            <img alt="Kendo UI for jQuery ListView #: firstName# #:lastName#" src="./content/employees/#:id#.png" class="img-responsive employee-details-image" />
             <dl class="employee-bio-details">
-                <dt class="name">#:FirstName# #:LastName#</dt>
-                    <dd class="title">#:Title#</dd>
-                    <dd class="phone"><span class="icon icon-mobile"></span>#:HomePhone#</dd>
-                    <dd><a href='\\#' class='bioTooltip'> >>FULL BIO <span style='display:none;'>#:Notes#</span></a></dd>
+                <dt class="name">#:firstName# #:lastName#</dt>
+                    <dd class="title">#:title#</dd>
+                    <dd class="phone"><span class="icon icon-mobile"></span>#:homePhone#</dd>
+                    <dd><a href='\\#' class='bioTooltip'> >>FULL BIO <span style='display:none;'>#:notes#</span></a></dd>
            </dl>
         </div>
     </script>
